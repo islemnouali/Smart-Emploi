@@ -65,12 +65,12 @@ Smart-Emploi isn’t just your average college schedule interface—it’s your 
 * [Bootstrap](https://getbootstrap.com/)
 
 ### How to use
-  •Drag and drop the cells at the bottom and form ur college's schedule<br>
-  •In the info btn(•••) u can toggle the week<br>
-  •In the resources tab you can add info, links, and images related to the subject you entered the resources from<br>
-  •Two cells with the same name will contain the same resources<br>
-  •The data you enter is saved locally<br>
-  •The app is completely local and safe despite the windows smart screen warning(Not officially licensed yet)<br>
+  •Drag and drop the cells at the bottom and form ur college's schedule<br>.
+  •In the info btn(•••) u can toggle the week<br>.
+  •In the resources tab you can add info, links, and images related to the subject you entered the resources from<br>.
+  •Two cells with the same name will contain the same resources<br>.
+  •The data you enter is saved locally<br>.
+  •The app is completely local and safe despite the windows smart screen warning(Not officially licensed yet)<br>.
 
 
 <!-- GETTING STARTED -->
