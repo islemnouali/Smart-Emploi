@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Emploi</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+</head>
+<body class="container">
+    <header class="header">
+        <div class="input-container">
+            <label for="faculte">🏫 Faculté:</label>
+            <input type="text" id="faculte" class="faculte">
+            <br>
+            <label for="semestre">📖 Semestre:</label>
+            <input type="text" id="semestre" class="semestre">
+
+            <label for="specialite">🎓 Specialité:</label>
+            <input type="text" id="specialite" class="specialite">
+        </div>
+
+        <h1>🚀Smart Emploi<span style="display: inline-block; transform: scaleX(-1);">🚀</h1>
+    </header>
+    
+    
+    <div class="timetable-container">
+        <div class="timetable">
+            <div class="headert">Lundi &#x1F480;</div>
+            <div class="headert">Mardi 😠</div>
+            <div class="headert">Mercredi 🤔</div>
+            <div class="headert">Jeudi 😎</div>
+            <div class="headert">Vendredi 🕌</div>
+            <div class="headert">Samedi 🤩</div>
+
+            <!-- Row 1 -->
+            <div class="cell" data-id="1" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">08:30</span></div>
+            <div class="cell" data-id="2" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">08:30</span></div>
+            <div class="cell" data-id="3" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">08:30</span></div>
+            <div class="cell" data-id="4" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">08:30</span></div>
+            <div class="cell" data-id="5" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">08:30</span></div>
+            <div class="cell" data-id="6" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">08:30</span></div>
+
+            <!-- Row 2 -->
+            <div class="cell" data-id="7" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">10:00</span></div>
+            <div class="cell" data-id="8" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">10:00</span></div>
+            <div class="cell" data-id="9" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">10:00</span></div>
+            <div class="cell" data-id="10" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">10:00</span></div>
+            <div class="cell" data-id="11" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">10:00</span></div>
+            <div class="cell" data-id="12" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">10:00</span></div>
+
+            <!-- Row 3 -->
+            <div class="cell" data-id="13" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">11:30</span></div>
+            <div class="cell" data-id="14" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">11:30</span></div>
+            <div class="cell" data-id="15" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">11:30</span></div>
+            <div class="cell" data-id="16" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">11:30</span></div>
+            <div class="cell" data-id="17" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">11:30</span></div>
+            <div class="cell" data-id="18" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">11:30</span></div>
+        </div>
+
+        <div class="gap">
+
+        </div>
+
+        <div class="timetable">
+            <!-- Row 4 -->
+            <div class="cell" data-id="19" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">13:30</span></div>
+            <div class="cell" data-id="20" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">13:30</span></div>
+            <div class="cell" data-id="21" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">13:30</span></div>
+            <div class="cell" data-id="22" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">13:30</span></div>
+            <div class="cell" data-id="23" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">13:30</span></div>
+            <div class="cell" data-id="24" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">13:30</span></div>
+
+            <!-- Row 5 -->
+            <div class="cell" data-id="25" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">15:00</span></div>
+            <div class="cell" data-id="26" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">15:00</span></div>
+            <div class="cell" data-id="27" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">15:00</span></div>
+            <div class="cell" data-id="28" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">15:00</span></div>
+            <div class="cell" data-id="29" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">15:00</span></div>
+            <div class="cell" data-id="30" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">15:00</span></div>
+
+            <!-- Row 6 -->
+            <div class="cell" data-id="31" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">16:30</span></div>
+            <div class="cell" data-id="32" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">16:30</span></div>
+            <div class="cell" data-id="33" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">16:30</span></div>
+            <div class="cell" data-id="34" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">16:30</span></div>
+            <div class="cell" data-id="35" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">16:30</span></div>
+            <div class="cell" data-id="36" ondragover="allowDrop(event)" ondrop="drop(event)"><span class="time">16:30</span></div>
+        </div>
+    </div>
+
+    <div class="cells-container">
+        <!-- Draggable Cell Cour-->
+        <div id="OriginalCell" class="draggable" draggable="true" ondragstart="drag(event)">
+            <input type="text" id="matiere" class="input-field1" placeholder="Matiere Cour" autocomplete="off">
+            <input type="text" id="prof" class="input-field2" placeholder="Prof" autocomplete="off">
+            <input type="text" id="salle" class="input-field3" placeholder="Salle" autocomplete="off">
+            <img src="./Assets/Cour.png" alt="Cour" class="cour-icon">
+
+            <!-- Three dot button -->
+            <button class="three-dot-btn" onclick="togglePopup(event)">&#x2022;&#x2022;&#x2022;</button>
+            
+            <!-- Popup options -->
+            <div class="popup">
+                <button class="popup-option" onclick="handleOption(event,'resources')">Ressources</button>
+                <button class="popup-option" onclick="handleOption(event,'delete')">Supprimer</button>
+                <!-- Week Selection Buttons -->
+                <button class="popup-option" onclick="toggleWeek('semaine-a', event)">Semaine A</button>
+                <button class="popup-option" onclick="toggleWeek('semaine-b', event)">Semaine B</button>
+            </div>
+        </div>
+        
+        <!-- Draggable Cell TD -->
+        <div id="OriginalCell" class="draggable" draggable="true" ondragstart="drag(event)">
+            <input type="text" id="matiere" class="input-field1" placeholder="Matiere TD" autocomplete="off">
+            <input type="text" id="prof" class="input-field2" placeholder="Prof" autocomplete="off">
+            <input type="text" id="salle" class="input-field3" placeholder="Salle" autocomplete="off">
+            <img src="./Assets/TD.png" alt="Cour" class="cour-icon">
+
+            <!-- Three dot button -->
+            <button class="three-dot-btn" onclick="togglePopup(event)">&#x2022;&#x2022;&#x2022;</button>
+            
+            <!-- Popup options -->
+            <div class="popup">
+                <button class="popup-option" onclick="handleOption(event,'resources')">Ressources</button>
+                <button class="popup-option" onclick="handleOption(event,'delete')">Supprimer</button>
+                <!-- Week Selection Buttons -->
+                <button class="popup-option" onclick="toggleWeek('semaine-a', event)">Semaine A</button>
+                <button class="popup-option" onclick="toggleWeek('semaine-b', event)">Semaine B</button>
+            </div>
+        </div>
+        
+        <!-- Draggable Cell TP -->
+        <div id="OriginalCell" class="draggable" draggable="true" ondragstart="drag(event)">
+            <input type="text" id="matiere" class="input-field1" placeholder="Matiere TP" autocomplete="off">
+            <input type="text" id="prof" class="input-field2" placeholder="Prof" autocomplete="off">
+            <input type="text" id="salle" class="input-field3" placeholder="Salle" autocomplete="off">
+            <img src="./Assets/TP.png" alt="Cour" class="cour-icon">
+
+            <!-- Three dot button -->
+            <button class="three-dot-btn" onclick="togglePopup(event)">&#x2022;&#x2022;&#x2022;</button>
+            
+            <!-- Popup options -->
+            <div class="popup">
+                <button class="popup-option" onclick="handleOption(event,'resources')">Ressources</button>
+                <button class="popup-option" onclick="handleOption(event,'delete')">Supprimer</button>
+                <!-- Week Selection Buttons -->
+                <button class="popup-option" onclick="toggleWeek('semaine-a', event)">Semaine A</button>
+                <button class="popup-option" onclick="toggleWeek('semaine-b', event)">Semaine B</button>
+            </div>
+        </div>
+        <!-- <button onclick="clearAllCells()" class="btn btn-danger">Clear All</button> -->
+    </div>
+    
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

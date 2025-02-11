@@ -1,0 +1,324 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #131313;
+    margin: 0;
+    
+}
+
+/* ✅ Style the Header */
+.header {
+    position: relative;
+    align-items: center;
+    background-color: transparent !important; /* Remove background color */
+    margin-top: 10px;
+}
+
+/* ✅ Style the Title */
+ h1 {
+    position: absolute; /* Take the h1 out of the normal flow */
+    top: 50%; /* Move it to the center vertically */
+    left: 50%; /* Move it to the center horizontally */
+    transform: translate(-50%, -50%); /* Offset to truly center the h1 */
+    white-space: nowrap; /* Prevent text from wrapping */
+    flex-grow: 0; /* Ensure it does not expand */
+    text-align: center;
+    margin: 0;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.input-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.header input {
+    border-bottom: 1px solid #131313;
+    border-radius: 0%;
+}
+
+.faculte {
+    border: #131313;
+    background-color:#ccc;
+    color: #131313;
+    font-size: 16px;
+    width: 70px;
+    margin-left: 2px;
+    text-align: center;
+}
+
+.semestre {
+    border: #131313;
+    background-color:#ccc;
+    color: #131313;
+    font-size: 16px;
+    width: 15px;
+    margin-top: 1px;
+    margin-right: 71vw;
+    text-align: center;
+}   
+
+.specialite {
+    border: #131313;
+    background-color:#ccc;
+    color: #131313;
+    font-size: 16px;
+    width: 50px;
+    margin-top: 1px;
+    text-align: center;
+}   
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ccc;
+}
+
+.timetable-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    margin-bottom: 5px;
+}
+
+.timetable {
+    display: grid;
+    grid-template-columns: repeat(6, 230px);
+    gap: 3px;
+    min-width: 1210px;
+    background: #ccc;
+    justify-items: center; /* Center the columns inside the grid */
+    padding: 10px;
+    margin-top: 0px;
+}
+
+.headert {
+    background: #585858;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    width: 230px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cell {
+    width: 230px;
+    height: 70px;
+    background: white;
+    border: 1px solid #cccccc;
+    border-radius:10px ;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.time {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+    color: rgb(53, 53, 53);
+    z-index: 999;
+}
+
+.draggable {
+    width: 230px;
+    height: 70px;
+    background: #eeeeee;
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    cursor: grab;
+    border: none;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Vertically center the inputs */
+    align-items: center; /* Horizontally center the inputs */
+    padding: 5px;
+    box-sizing: border-box;
+    user-select: none;
+    position: relative; /* Ensures the icon is positioned relative to the container */
+    transition: all 0.3s ease;
+}
+
+.draggable .cour-icon {
+    color: #fff;
+    width: 15px;
+    position: absolute; /* Position relative to .draggable */
+    right: 5px; /* Position the icon to the right inside the container */
+    top: 50%; /* Vertically center the icon */
+    transform: translateY(-50%); /* Adjust to center the icon exactly */
+    font-size: 16px; /* Size of the icon */
+    pointer-events: none; /* Makes the icon unclickable */
+}
+
+.three-dot-btn {
+    position: absolute;
+    top: 5px; /* Position at the top right of the cell */
+    left: 5px;
+    font-size: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    display: flex;
+    flex-direction: column; /* Stack dots vertically */
+    align-items: center;
+}
+
+.three-dot-btn span {
+    display: block;
+    font-size: 20px; /* Size of each dot */
+    line-height: 5px; /* Space between dots */
+}
+
+.popup {
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 30px; /* Close to the button */
+    left: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    width: 120px;
+    z-index: 1000; /* Make sure the popup appears above other elements */
+    padding: 0; /* Remove default padding */
+}
+
+.popup-option {
+    padding: 10px;
+    text-align: left;
+    background: white;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 14px;
+    display: block; /* Ensure the buttons are stacked vertically */
+}
+
+.popup-option:hover {
+    background-color: #f0f0f0;
+}
+
+.input-field1 {
+    width: 70%; /* Ensure inputs are smaller than the cell, adjust as needed */
+    margin-bottom: 1px; /* Space between inputs */
+    font-size: 10px;  /* Smaller font size */
+    font-weight: bolder;
+    color: #303030;
+    background-color: #eeeeee;
+    border: 1px solid #eeeeee;
+    border-radius: 3px;
+    box-sizing: border-box;
+    text-align: center; /* Horizontally center the input text */
+}
+
+.input-field2 {
+    width: 70%; /* Ensure inputs are smaller than the cell, adjust as needed */
+    margin-bottom: 1px; /* Space between inputs */
+    font-size: 10px;  /* Smaller font size */
+    font-weight: 490;
+    color: #303030;
+    background-color: #eeeeee;
+    border: 1px solid #eeeeee;
+    border-radius: 3px;
+    box-sizing: border-box;
+    text-align: center; /* Horizontally center the input text */
+}
+
+.input-field3 {
+    width: 70%; /* Ensure inputs are smaller than the cell, adjust as needed */
+    margin-bottom: 1px; /* Space between inputs */
+    font-size: 10px;  /* Smaller font size */
+    font-weight: lighter;
+    text-decoration: underline;
+    color: #303030;
+    background-color: #eeeeee;
+    border: 1px solid #eeeeee;
+    border-radius: 3px;
+    box-sizing: border-box;
+    text-align: center; /* Horizontally center the input text */
+}
+
+.draggable .time {
+    right: 10px; /* Slightly to the right */
+    font-size: 12px;
+    color: gray;
+}
+
+.cells-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 5vh;
+}
+
+/* Semaine A (First Half) */
+.semaine-a {
+    width: 115px !important;
+    position: absolute;
+    left: 0;
+    border-right: 1px solid #a7a7a7; /* Border to the right */
+    border-radius: 5px 0 0 5px;   /* Rounded corners on the left side */
+    display: flex;
+    justify-content: center; /* Align children (inputs) to the left */
+    align-items: flex-start; /* Align vertically to the top if needed */
+    padding: 0; /* Remove padding from the parent */
+}
+
+/* Semaine B (Second Half) */
+.semaine-b {
+    width: 115px !important;
+    position: absolute;
+    right: 0;
+    border-left: 1px solid #a7a7a7;  /* Border to the left */
+    border-radius: 0 5px 5px 0;   /* Rounded corners on the right side */
+    display: flex;
+    justify-content: center; /* Align children (inputs) to the left */
+    align-items: flex-start; /* Align vertically to the top if needed */
+    padding: 0; /* Remove padding from the parent */
+}
+
+/* Adjust layout when week is selected */
+.semaine-a .three-dot-btn,
+.semaine-b .three-dot-btn {
+    top: auto; /* Remove top alignment */
+    right: 5px; /* Keep 3 dots aligned to the right */
+    bottom: 5px; /* Position 3 dots at the bottom */
+    left: auto;
+}
+
+.semaine-b .popup,
+.semaine-a .popup {
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 60px; /* Close to the button */
+    left: 0px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    width: 120px;
+    z-index: 1000; /* Make sure the popup appears above other elements */
+    padding: 0; /* Remove default padding */
+}
+
+/* Move inputs to the left */
+.semaine-a input,
+.semaine-b input {
+    text-align: left;
+    width: 90%; /* Adjust input width for readability */
+    font-size: 8px;
+}

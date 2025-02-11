@@ -1,0 +1,30 @@
+{
+  "name": "smart_emploi",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^34.0.2",
+    "electron-builder": "^25.1.8"
+  },
+  "dependencies": {
+    "electron-store": "^10.0.1"
+  },
+  "build": {
+    "win": {
+      "icon": "src/Assets/logo1.ico"
+    },
+    "linux": {
+      "icon": "src/Assets/logo1.png"
+    }
+  }
+  
+}
