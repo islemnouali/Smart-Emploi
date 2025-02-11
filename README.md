@@ -5,7 +5,7 @@
 <div align="center">
 
   <a href="https://github.com/islemnouali/Smart-Emploi">
-    <img src="https://camo.githubusercontent.com/1fb55cf5219c451a2fae0dc4e5e7188b8004519c2a43b3d038594ffddb75f106/68747470733a2f2f7777772e766f6964636173742e6c6f6c2f696d616765732f6c6f676f2e706e67" alt="Smart-Emploi Logo" width="130" height="130">
+    <img src="https://i.imgur.com/V9M3bUI.png" alt="Smart-Emploi Logo" width="130" height="130">
   </a>
 
   <h3 align="center">Smart Emploi</h3>
