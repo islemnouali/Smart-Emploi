@@ -11,7 +11,7 @@
   <h3 align="center">Smart Emploi</h3>
 
   <p align="center">
-    Organize ur college Studies✨
+    Organize your college Studies✨
     <br />
     <a href="https://github.com/islemnouali/Smart-Emploi"><strong>Explore the docs »</strong></a>
     <br />
@@ -55,7 +55,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![image](https://github.com/user-attachments/assets/c4b4326c-71b9-4f77-987c-8378f1334add)
+![image](https://i.imgur.com/cmjE6Ti.png)
 
 Smart-Emploi isn’t just your average college schedule interface—it’s your ultimate study companion! 🚀 With its powerful resources feature, you can organize and access all your study materials effortlessly in one place. No more scrambling through folders or lost files🥳
 
@@ -65,7 +65,7 @@ Smart-Emploi isn’t just your average college schedule interface—it’s your 
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
+To download the app check the latest release
 To install the project in your machine, please follow the instructions below:
 
 ### Install & usage
