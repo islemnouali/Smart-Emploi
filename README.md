@@ -65,7 +65,7 @@ Smart-Emploi isn’t just your average college schedule interface—it’s your 
 
 <!-- GETTING STARTED -->
 ## Getting Started
-To download the app, check the [latest release](https://github.com/islemnouali/Smart-Emploi/releases).
+To download the app, check the [latest release](https://github.com/islemnouali/Smart-Emploi/releases).<br>
 To install the project in your machine, please follow the instructions below:
 
 ### Install & usage
