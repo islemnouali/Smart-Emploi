@@ -64,9 +64,19 @@ Smart-Emploi isn’t just your average college schedule interface—it’s your 
 * [Electron.js](https://www.electronjs.org/)
 * [Bootstrap](https://getbootstrap.com/)
 
+### How to use
+  •Drag and drop the cells at the bottom and form ur college's schedule<br>
+  •In the info btn(•••) u can toggle the week<br>
+  •In the resources tab you can add info, links, and images related to the subject you entered the resources from<br>
+  •Two cells with the same name will contain the same resources<br>
+  •The data you enter is saved locally<br>
+  •The app is completely local and safe despite the windows smart screen warning(Not officially licensed yet)<br>
+
+
 <!-- GETTING STARTED -->
 ## Getting Started
 To download the app, check the [latest release](https://github.com/islemnouali/Smart-Emploi/releases).<br>
+  •Even though windows smart screen or your os defender initially blocks it you can open anyways as its completely local and safe<br>
 To install the project in your machine, please follow the instructions below:
 
 ### Install & usage
