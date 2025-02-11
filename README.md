@@ -5,7 +5,7 @@
 <div align="center">
 
   <a href="https://github.com/islemnouali/Smart-Emploi">
-    <img src="https://www.Smart-Emploi.lol/images/logo.png" alt="Smart-Emploi Logo" width="130" height="130">
+    <img src="https://imgur.com/a/1QtNFjy" alt="Smart-Emploi Logo" width="130" height="130">
   </a>
 
   <h3 align="center">Smart Emploi</h3>
