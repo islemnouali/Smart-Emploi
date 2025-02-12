@@ -1,4 +1,6 @@
 let matiereKey = ""; // ✅ Unique key for each cell's resources
+let imageIndex = 0;
+let imageList = [];
 
 document.addEventListener("DOMContentLoaded", function () {
     const params = new URLSearchParams(window.location.search);
@@ -156,12 +158,22 @@ function loadImages() {
 
 // ✅ Open image in full screen with zooming
 function openImage(imageSrc) {
+    imageList = JSON.parse(localStorage.getItem(`images_${matiereKey}`)) || [];
+    imageIndex = imageList.findIndex(img => img.src === imageSrc);
+
     const popup = document.createElement("div");
     popup.classList.add("image-popup");
 
     const img = document.createElement("img");
     img.src = imageSrc;
     img.classList.add("full-image");
+    img.id = "opened-image";
+
+    // Track transformation states
+    img.rotationAngle = 0; 
+    img.scale = 1; 
+    img.translateX = 0; 
+    img.translateY = 0; 
 
     const closeBtn = document.createElement("button");
     closeBtn.textContent = "X";
@@ -170,55 +182,131 @@ function openImage(imageSrc) {
         popup.remove();
     };
 
+    const rotateBtn = document.createElement("button");
+    rotateBtn.textContent = "⟳";
+    rotateBtn.classList.add("rotate-btn");
+    rotateBtn.onclick = function () {
+        rotateImage(90, img);
+    };
+
+    // ✅ Left Arrow (Previous Image)
+    const prevBtn = document.createElement("button");
+    prevBtn.innerHTML = "&lsaquo;";
+    prevBtn.classList.add("nav-btn", "left-btn");
+    prevBtn.onclick = function () {
+        prevImage();
+    };
+
+    // ✅ Right Arrow (Next Image)
+    const nextBtn = document.createElement("button");
+    nextBtn.innerHTML = "&rsaquo;";
+    nextBtn.classList.add("nav-btn", "right-btn");
+    nextBtn.onclick = function () {
+        nextImage();
+    };
+
+    // ✅ Add elements to popup
+    popup.appendChild(prevBtn);
     popup.appendChild(img);
+    popup.appendChild(rotateBtn);
+    popup.appendChild(nextBtn);
     popup.appendChild(closeBtn);
+
     document.body.appendChild(popup);
 
-    enableZoom(img); // ✅ Enable zooming on the image
+    enableZoomAndPan(img); // ✅ Enable zoom & panning
 }
 
-// ✅ Add zoom and drag functionality
-function enableZoom(img) {
-    let scale = 1;
+// ✅ Rotate image without affecting zoom or position
+function rotateImage(angle, img) {
+    img.rotationAngle += angle;
+    applyTransform(img);
+}
+
+// ✅ Apply all transformations (rotation + zoom + panning)
+function applyTransform(img) {
+    img.style.transform = `translate(${img.translateX}px, ${img.translateY}px) rotate(${img.rotationAngle}deg) scale(${img.scale})`;
+}
+
+// ✅ Enable zoom & panning (dragging)
+function enableZoomAndPan(img) {
     let isDragging = false;
-    let startX, startY, originX, originY;
+    let startX, startY;
 
     // ✅ Scroll to zoom in/out
     img.addEventListener("wheel", (event) => {
         event.preventDefault();
         const zoomFactor = 0.1;
-        scale += event.deltaY > 0 ? -zoomFactor : zoomFactor;
-        scale = Math.max(1, Math.min(5, scale)); // ✅ Limit zoom level
-        img.style.transform = `scale(${scale})`;
+        let oldScale = img.scale;
+
+        // Update scale
+        img.scale += event.deltaY > 0 ? -zoomFactor : zoomFactor;
+        img.scale = Math.max(1, Math.min(5, img.scale)); // ✅ Limit zoom level
+
+        // Adjust translation to keep focus on cursor
+        if (oldScale !== img.scale) {
+            let rect = img.getBoundingClientRect();
+            let offsetX = event.clientX - rect.left;
+            let offsetY = event.clientY - rect.top;
+
+            let scaleChange = img.scale / oldScale;
+            img.translateX -= (offsetX - rect.width / 2) * (scaleChange - 1);
+            img.translateY -= (offsetY - rect.height / 2) * (scaleChange - 1);
+        }
+
+        applyTransform(img);
     });
 
-    // ✅ Dragging (Pan Image)
+    // ✅ Mouse press to start dragging
     img.addEventListener("mousedown", (event) => {
-        event.preventDefault();
-        isDragging = true;
-        startX = event.clientX;
-        startY = event.clientY;
-        originX = img.offsetLeft;
-        originY = img.offsetTop;
-        img.style.cursor = "grabbing";
+        if (img.scale > 1) { // ✅ Only allow dragging when zoomed in
+            event.preventDefault();
+            isDragging = true;
+            startX = event.clientX;
+            startY = event.clientY;
+            originX = img.offsetLeft;
+            originY = img.offsetTop;
+            img.style.cursor = "grabbing";
+        }
     });
 
-    document.addEventListener("mousemove", (event) => {
-        if (!isDragging) return;
-        const moveX = event.clientX - startX;
-        const moveY = event.clientY - startY;
-        img.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scale})`;
+    // ✅ Move the image while dragging
+    window.addEventListener("mousemove", (event) => {
+        if (isDragging) {
+            img.translateX = event.clientX - startX;
+            img.translateY = event.clientY - startY;
+            applyTransform(img);
+        }
     });
 
-    document.addEventListener("mouseup", () => {
+    // ✅ Release the image on mouse up
+    window.addEventListener("mouseup", () => {
         isDragging = false;
-        img.style.cursor = "grab";
-    });
-
-    // ✅ Reset zoom when clicking "X" button
-    document.querySelector(".close-popup").addEventListener("click", () => {
-        scale = 1;
-        img.style.transform = "scale(1)";
     });
 }
 
+
+
+function nextImage() {
+    if (imageList.length < 2) return; // ✅ Don't navigate if only one image
+    imageIndex = (imageIndex + 1) % imageList.length; // ✅ Loop back to start
+    updateOpenedImage();
+}
+
+function prevImage() {
+    if (imageList.length < 2) return; // ✅ Don't navigate if only one image
+    imageIndex = (imageIndex - 1 + imageList.length) % imageList.length; // ✅ Loop back to end
+    updateOpenedImage();
+}
+
+// ✅ Helper function to update the opened image
+function updateOpenedImage() {
+    const img = document.getElementById("opened-image");
+    if (!img) return;
+
+    const newImageSrc = imageList[imageIndex].src;
+    img.src = newImageSrc;
+
+    // ✅ Restore rotation for this image
+    img.style.transform = `rotate(${imageRotation[newImageSrc] || 0}deg)`;
+}
