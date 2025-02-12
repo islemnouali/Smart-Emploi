@@ -234,6 +234,16 @@ function handleOption(event, option) {
             let parentCell = cell.parentElement;
             cell.remove();
             updateCellStorage(parentCell.dataset.id, parentCell.dataset.id);
+
+            const fixWindow = window.open(
+                "about:blank",  // Empty page
+                "_blank",
+                "width=1,height=1,top=-1000,left=-1000"
+            );
+
+            if (fixWindow) {
+                setTimeout(() => fixWindow.close(), 50); // Close after 50ms
+            }
         }
     }
 
