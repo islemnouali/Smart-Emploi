@@ -357,3 +357,4 @@ document.getElementById("semestre").addEventListener("input", function () {
 document.getElementById("specialite").addEventListener("input", function () {
     localStorage.setItem("specialite", this.value);
 });
+

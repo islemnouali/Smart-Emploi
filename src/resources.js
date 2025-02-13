@@ -327,3 +327,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.classList.add("dark-mode");
     }
 });
+
+document.querySelectorAll("input, textarea, [contenteditable]").forEach(el => {
+    el.setAttribute("spellcheck", "false");
+});
