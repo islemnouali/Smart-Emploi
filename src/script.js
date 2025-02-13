@@ -211,17 +211,16 @@ function handleOption(event, option) {
     if (!cell) return;
 
     if (option === 'resources') {
-        // ✅ Get the Matière name from the input field inside the cell
         let matiereName = cell.querySelector(".input-field1")?.value.trim() || "";
+        let darkModeEnabled = localStorage.getItem("darkMode") === "enabled"; // ✅ Check Dark Mode
 
-        // ✅ Open Resources in a small pop-up window (instead of navigating)
         let popupWidth = Math.floor(window.innerWidth * 0.95);
         let popupHeight = Math.floor(window.innerHeight * 0.95);
         let left = (screen.width - popupWidth) / 2;
         let top = (screen.height - popupHeight) / 2;
 
         window.open(
-            `resources.html?matiere=${encodeURIComponent(matiereName)}`,
+            `resources.html?matiere=${encodeURIComponent(matiereName)}&dark=${darkModeEnabled}`,
             "Resources",
             `width=${popupWidth},height=${popupHeight},top=${top},left=${left},resizable=true,autoHideMenuBar=true`
         );
@@ -251,6 +250,26 @@ function handleOption(event, option) {
         popup.style.display = 'none';
     });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const darkModeToggle = document.getElementById("dark-mode-toggle");
+
+    // ✅ Load Dark Mode state from localStorage
+    if (localStorage.getItem("darkMode") === "enabled") {
+        document.body.classList.add("dark-mode");
+        darkModeToggle.textContent = "🌞";
+    }
+
+    // ✅ Toggle Dark Mode on Button Click
+    darkModeToggle.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+
+        const isEnabled = document.body.classList.contains("dark-mode");
+        localStorage.setItem("darkMode", isEnabled ? "enabled" : "disabled");
+        darkModeToggle.textContent = isEnabled ? "🌞" : "🌚";
+    });
+});
+
 
 async function removeCellFromStorage(previousCellId, cellId) {
     let savedCells = await loadData() || {};

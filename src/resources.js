@@ -310,3 +310,20 @@ function updateOpenedImage() {
     // ✅ Restore rotation for this image
     img.style.transform = `rotate(${imageRotation[newImageSrc] || 0}deg)`;
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const params = new URLSearchParams(window.location.search);
+    const matiereName = params.get("matiere");
+    const darkMode = params.get("dark") === "true"; // ✅ Get Dark Mode status
+
+    if (matiereName && matiereName.trim() !== "") {
+        document.getElementById("matiere-title").textContent = matiereName;
+    } else {
+        document.getElementById("matiere-title").style.display = "none";
+    }
+
+    // ✅ Apply Dark Mode if enabled
+    if (darkMode) {
+        document.body.classList.add("dark-mode");
+    }
+});

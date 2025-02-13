@@ -2,8 +2,111 @@ body {
     font-family: Arial, sans-serif;
     background-color: #131313;
     margin: 0;
-    
+    transition: background 0.1s ease, color 0.1s ease;
 }
+
+
+/* ✅ Dark Mode */
+body.dark-mode {
+    background-color: #1f1f1f;
+    color: #ffffff;
+}
+
+/* ✅ Dark Mode for Containers */
+.dark-mode .container,
+.dark-mode .timetable-container {
+    background-color: #1f1f1f;
+}
+
+/* ✅ Dark Mode for Cells */
+.dark-mode .cell {
+    background-color: #555;
+    color: #fff;
+    border: 1px solid #1f1f1f;
+}
+
+/* ✅ Dark Mode for Buttons */
+.dark-mode button {
+    background-color: #1f1f1f;
+    color: #fff;
+    border: none;
+}
+
+.dark-mode button:hover {
+    background-color: #444;
+}
+
+/* ✅ Dark Mode for Inputs */
+.dark-mode input,
+.dark-mode textarea {
+    background-color: #333;
+    color: #fff;
+    border: none;
+}
+
+.dark-mode .header input {
+    background-color: #1f1f1f;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.dark-mode input::placeholder,
+.dark-mode textarea::placeholder {
+    color: #bbb;
+}
+
+/* ✅ Dark Mode for Popups */
+.dark-mode .popup {
+    background-color: tra;
+    border: 1px solid #444;
+}
+
+.dark-mode .draggable {
+    background-color: #333;
+    color: #fff;
+    border: none;
+}  
+
+.dark-mode .timetable {
+    background-color: #1f1f1f;
+    border: none;
+}
+
+.dark-mode .semaine-a {
+    border-right: 1px solid #a7a7a7;  /* Border to the left */
+}
+
+.dark-mode .semaine-b {
+    border-left: 1px solid #a7a7a7;  /* Border to the left */
+}
+
+.dark-mode .time {
+    color: #ccc;
+}
+
+.dark-mode .headert {
+    background: #ddd;
+    color: #101010;
+}
+
+#dark-mode-toggle {
+    position: absolute;
+    top: 5vh;
+    right: 10vh;
+    background: transparent;
+    border: none;
+    font-size: 24px; /* Adjust size as needed */
+    cursor: pointer;
+    padding: 5px;
+    color: inherit; /* ✅ Adapts to Dark/Light Mode */
+    transition: transform 0.2s ease-in-out;
+}
+
+/* ✅ Slight Scale Effect on Hover */
+#dark-mode-toggle:hover {
+    transform: scale(1.1);
+}
+/* --------------------------------------------------------------------------------------------------- */
+
 
 /* ✅ Style the Header */
 .header {
@@ -322,3 +425,5 @@ body {
     width: 90%; /* Adjust input width for readability */
     font-size: 8px;
 }
+
+

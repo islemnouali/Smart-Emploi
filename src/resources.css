@@ -8,7 +8,127 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+
 }
+
+/* ✅ Dark Mode */
+body.dark-mode {
+    background-color: #121212;
+    color: #e3e3e3;
+}
+.dark-mode .header {
+    background-color: #1e1e1e;
+    color: #e3e3e3;
+    border-bottom: 2px solid #444;
+
+}
+
+/* ✅ Update Containers */
+.dark-mode .container {
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+}
+
+/* ✅ Update Resource Section */
+.dark-mode .resource-section {
+    background-color: #252525;
+    border: 1px solid #444;
+}
+
+/* ✅ Update Textarea */
+.dark-mode textarea {
+    background-color: #222;
+    color: #e3e3e3;
+    border: 1px solid #444;
+}
+
+/* ✅ Update Buttons */
+.dark-mode button {
+    background-color: #333;
+    color: #e3e3e3;
+    border: 1px solid #444;
+}
+
+.dark-mode button:hover {
+    background-color: #444;
+}
+
+/* ✅ Update Links */
+.dark-mode a {
+    color: #1e90ff;
+}
+
+/* ✅ Update Image Containers */
+.dark-mode .image-container {
+    background-color: #252525;
+}
+
+/* ✅ Update Delete Buttons */
+.dark-mode .delete-btn {
+    background-color: #aa0000;
+    color: #e3e3e3;
+}
+
+.dark-mode #image-gallery {
+    background-color: #252525;
+    border: 1px solid #444;
+}
+
+.dark-mode .box {
+    background-color: #252525;
+    border: 1px solid #444;
+}
+
+.dark-mode .box1 {
+    background-color: #252525;
+    border: 1px solid #444;
+}
+.dark-mode .box1 input {
+    background-color: #252525;
+    border: 1px solid #444;
+    color: #ccc;
+}
+
+.dark-mode #resource-list {
+    background-color: #252525;
+    border-top: 1px solid #444;
+}
+
+.dark-mode .image-name {
+    color: #e3e3e3;
+}
+
+.dark-mode #resource-list li{
+    background-color: #333333;
+}
+
+.dark-mode #resource-list li a{
+    color: #eaf1f7;
+}
+ 
+.dark-mode #info {
+    background-color: #252525;
+    border: 1px solid #444;
+}
+
+.dark-mode .delete-img-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: red;
+    color: white;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 30%;
+    display: none; /* Initially hidden */
+}
+
+.dark-mode .delete-img-btn:hover {
+    background: darkred;
+}
+/* -------------------------------------------------------------------------------------------------------------------- */
 
 /* Larger, More Modern Container */
 .container {
@@ -47,13 +167,6 @@ body {
     height: 80vh;
 }
 
-/* Fixed Header */
-.header {
-    background: white;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #ddd;
-    text-align: center;
-}
 
 /* ✅ Layout: Boxes for Links & Images */
 .content {
@@ -82,6 +195,7 @@ body {
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
 }
+
 /* Image Upload Input */
 #image-upload {
     display: block;
@@ -97,13 +211,6 @@ body {
     margin-top: 10px;
 }
 
-#image-gallery img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 5px;
-    cursor: pointer;
-}
 /* Matière Name */
 #matiere-title {
     font-size: 20px;
@@ -258,13 +365,6 @@ body {
     color: #444;
 }
 
-/* ✅ File Name Display */
-#file-name {
-    font-size: 14px;
-    color: #555;
-    font-style: italic;
-}
-
 
 /* ✅ Fix: Delete Button Stays on Image */
 .image-container {
@@ -309,7 +409,6 @@ body {
     height: 100px;
     object-fit: cover;
     border-radius: 5px;
-    border: 1px solid #ccc;
     cursor: pointer;
 }
 
@@ -322,7 +421,6 @@ body {
     word-break: break-word; /* Ensures long names wrap properly */
     max-width: 100px;
 }
-
 
 /* ✅ Full-Screen Image Popup */
 .image-popup {
@@ -413,3 +511,5 @@ span{
     font-size: 15px;
     opacity: 0.8;
 }   
+
+
