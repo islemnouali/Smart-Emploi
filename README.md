@@ -55,8 +55,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![image](https://i.imgur.com/cmjE6Ti.png)
-![image](https://i.imgur.com/tRbVjlV.png)
+![image](https://i.imgur.com/r3vGjG4.png)
+![image](https://i.imgur.com/6mQrtPX.png)
+![image](https://i.imgur.com/g3aWKOy.png)
+![image](https://i.imgur.com/GFW2RPY.png)
 
 Smart-Emploi isn’t just your average college schedule interface—it’s your ultimate study companion! 🚀 With its powerful resources feature, you can organize and access all your study materials effortlessly in one place. No more scrambling through folders or lost files🥳
 
