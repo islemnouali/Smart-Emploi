@@ -1,9 +1,9 @@
 * {
-    font-family: "Segoe UI", sans-serif;
+    font-family: 'Roboto', sans-serif;
   }  
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #131313;
     margin: 0;
     transition: background 0.1s ease, color 0.1s ease;

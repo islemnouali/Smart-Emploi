@@ -86,19 +86,23 @@ function loadResources() {
 
 /* ------------------- ✅ IMAGE UPLOAD FUNCTIONALITY ------------------- */
 
-// ✅ Handle image upload
+// ✅ Handle multiple image uploads
 document.getElementById("image-upload").addEventListener("change", function (event) {
-    const file = event.target.files[0]; // Get selected file
-    if (!file) return;
+    const files = event.target.files; // ✅ Get all selected files
+    if (!files.length) return;
 
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        const imageData = e.target.result; // Convert image to base64
-        addImage(imageData, file.name); // Pass image data and file name
-        saveImages();
-    };
+    Array.from(files).forEach(file => { // ✅ Loop through all files
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const imageData = e.target.result; // ✅ Convert image to base64
+            addImage(imageData, file.name); // ✅ Add each image
+            saveImages();
+        };
+        reader.readAsDataURL(file); // ✅ Read each file as Data URL
+    });
 
-    reader.readAsDataURL(file); // Read file as Data URL
+    // ✅ Reset file input so you can select the same files again
+    event.target.value = "";
 });
 
 // ✅ Add image to gallery
@@ -180,6 +184,7 @@ function openImage(imageSrc) {
     closeBtn.classList.add("close-popup");
     closeBtn.onclick = function () {
         popup.remove();
+        document.removeEventListener("keydown", handleArrowKeys); // ✅ Remove event listener
     };
 
     const rotateBtn = document.createElement("button");
@@ -215,6 +220,20 @@ function openImage(imageSrc) {
     document.body.appendChild(popup);
 
     enableZoomAndPan(img); // ✅ Enable zoom & panning
+}
+
+document.addEventListener("keydown", handleArrowKeys); // ✅ Listen for arrow keys
+
+function handleArrowKeys(event) {
+    if (document.querySelector(".image-popup")) { // ✅ Only if popup is open
+        if (event.key === "ArrowRight") {
+            nextImage();
+        } else if (event.key === "ArrowLeft") {
+            prevImage();
+        } else if (event.key === "Escape") {
+            document.querySelector(".image-popup")?.remove(); // ✅ Close popup on ESC
+        }
+    }
 }
 
 // ✅ Rotate image without affecting zoom or position
@@ -331,3 +350,4 @@ document.addEventListener("DOMContentLoaded", function () {
 document.querySelectorAll("input, textarea, [contenteditable]").forEach(el => {
     el.setAttribute("spellcheck", "false");
 });
+
