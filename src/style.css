@@ -105,6 +105,23 @@ body.dark-mode {
  background-color: #333;
 }
 
+#tutorial-btn{
+    position: absolute;
+    bottom: 5vh;
+    left: 10vh;
+    background: transparent;
+    border: none;
+    font-size: 30px; /* Adjust size as needed */
+    cursor: pointer;
+    padding: 5px;
+    color: inherit; /* ✅ Adapts to Dark/Light Mode */
+    transition: transform 0.2s ease-in-out;
+
+}
+
+#tutorial-btn:hover {
+    transform: scale(1.1);
+}
 #dark-mode-toggle {
     position: absolute;
     top: 5vh;

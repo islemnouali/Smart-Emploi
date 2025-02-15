@@ -6,6 +6,9 @@
     <title>Smart Emploi</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="libs/introjs.min.css">
+    <script src="libs/intro.min.js"></script> 
     
 </head>
 <body class="container">
@@ -21,11 +24,12 @@
             <input type="text" id="specialite" class="specialite">
         </div>
         
-        <h1>🚀Smart Emploi<span style="display: inline-block; transform: scaleX(-1);">🚀</h1>
+        <h1 id="Title">🚀Smart Emploi<span style="display: inline-block; transform: scaleX(-1);">🚀</h1>
     </header>
     
     <div class="dark">
-        <button id="dark-mode-toggle" style="border: none;">🌚</button>
+        <button id="dark-mode-toggle" style="border: none;" title="Toggle dark mode">🌚</button>
+        <button id="tutorial-btn" class="btn btn-primary" title="Click to start the tutorial">💡</button>
     </div>
 
     <div class="timetable-container">

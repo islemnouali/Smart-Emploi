@@ -6,10 +6,10 @@ const DATA_FILE = path.join(app.getPath('userData'), 'cellsData.json');
 
 let mainWindow;
 
-app.on('browser-window-created', (event, window) => {
-    window.setMenu(null);  // Removes the menu bar
-    window.setMenuBarVisibility(false); // Hides the menu bar completely
-  });
+// app.on('browser-window-created', (event, window) => {
+//     window.setMenu(null);  // Removes the menu bar
+//     window.setMenuBarVisibility(false); // Hides the menu bar completely
+//   });
 
 app.whenReady().then(() => {
     mainWindow = new BrowserWindow({
@@ -58,6 +58,8 @@ ipcMain.handle('load-data', async () => {
         return {};
     }
 });
+
+
 
 // ✅ Handle macOS behavior
 app.on('window-all-closed', () => {

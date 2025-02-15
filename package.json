@@ -16,7 +16,8 @@
     "electron-builder": "^25.1.8"
   },
   "dependencies": {
-    "electron-store": "^10.0.1"
+    "electron-store": "^10.0.1",
+    "intro.js": "^7.2.0"
   },
   "build": {
     "win": {
@@ -26,5 +27,4 @@
       "icon": "src/Assets/logo1.png"
     }
   }
-  
 }

@@ -358,3 +358,70 @@ document.getElementById("specialite").addEventListener("input", function () {
     localStorage.setItem("specialite", this.value);
 });
 
+// ----------Into.js Tutorial-----------
+
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("DOM Loaded, checking tutorial..."); // ✅ Debugging log
+
+    // ✅ Check if it's the user's first time
+    if (!localStorage.getItem("introCompleted")) {
+        console.log("Starting tutorial for first-time user..."); // ✅ Debugging log
+        startTutorial(); 
+    }
+
+    // ✅ Add event listener for the tutorial button
+    const tutorialBtn = document.getElementById("tutorial-btn");
+    if (tutorialBtn) {
+        tutorialBtn.addEventListener("click", startTutorial);
+        console.log("Tutorial button found & event added!"); // ✅ Debugging log
+    } else {
+        console.error("Tutorial button not found!");
+    }
+});
+
+function startTutorial() {
+    introJs()
+        .setOptions({
+            steps: [
+                { 
+                    intro: "Welcome To Smart Emploi🚀"
+                },
+                {
+                    element: document.querySelector(".cells-container"), 
+                    intro: "Pour ajouter une nouvelle cellule, faites glisser l'une de ces cellules (Cour, TD, TP) dans la grille. (Drag & Drop)."
+                },
+                {
+                    element: document.querySelector("#OriginalCell"), 
+                    intro: "Pour chaque cellule, tu peux saisir le nom de la matière, le professeur et la salle."
+                },
+                {
+                    element: document.querySelector(".three-dot-btn"), 
+                    intro: "Dans les options tu peus Acceder aux ressources, Changer la semaine ou Supprimer la cellule."
+                },
+                {
+                    element: document.querySelector("#dark-mode-toggle"), 
+                    intro: "Tu peus activer le mode sombre en cliquant sur ce bouton."
+                },
+                {
+                    element: document.querySelector("#Title"), 
+                    intro: "! Dans l'onglet Ressources, vous pouvez ajouter des informations, des liens et des images liés au sujet à partir duquel vous avez saisi les ressources.<br><br>! Deux cellules portant le même nom contiendront les mêmes ressources."
+                }
+            ],
+            showProgress: false,  // ✅ Show step progress bar
+            showBullets: true,  // ❌ Hide bullet points
+            exitOnOverlayClick: false, // ❌ Prevent closing by clicking outside
+            showStepNumbers: true,  // ✅ Show step numbers
+            disableInteraction: false, // ✅ Allow user interaction
+            nextLabel: "Suivant",
+            prevLabel: "Retour",
+            doneLabel: "Terminer",
+            skipLabel: "Skip" // ✅ Skip button text
+        })
+        .oncomplete(function () {
+            localStorage.setItem("introCompleted", "true"); // ✅ Mark tutorial as completed
+        })
+        .onexit(function () {
+            localStorage.setItem("introCompleted", "true"); // ✅ Skip also completes the tutorial
+        })
+        .start();
+}
