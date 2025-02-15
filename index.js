@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain} = require('electron');
+const { app, BrowserWindow, ipcMain, screen } = require('electron');
 const path = require('path');
 const fs = require('fs').promises;  // ✅ Use async file system
 
@@ -6,14 +6,9 @@ const DATA_FILE = path.join(app.getPath('userData'), 'cellsData.json');
 
 let mainWindow;
 
-app.on('browser-window-created', (event, window) => {
-    window.setMenu(null);  // Removes the menu bar
-    window.setMenuBarVisibility(false); // Hides the menu bar completely
-  });
-
 app.whenReady().then(() => {
     mainWindow = new BrowserWindow({
-        icon: path.join(__dirname,'src', 'Assets', 'logo1.ico'),
+        icon: path.join(__dirname, 'src', 'Assets', 'logo1.ico'),
         autoHideMenuBar: true,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
@@ -24,6 +19,25 @@ app.whenReady().then(() => {
 
     mainWindow.loadFile(path.join(__dirname, 'src', 'index.html'));
     mainWindow.maximize();
+    mainWindow.setMenuBarVisibility(false); // Hides the menu bar completely
+
+    // ✅ Apply zoom **only if** resolution is 1366x768 or smaller
+    const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+    if (width <= 1366 && height <= 768) {
+        mainWindow.webContents.once('did-finish-load', () => {
+            mainWindow.webContents.setZoomFactor(0.8); // Zoom out AFTER loading
+        });
+    }
+
+    // ✅ Block DevTools shortcuts (F12 & Ctrl+Shift+I)
+    mainWindow.webContents.on('before-input-event', (event, input) => {
+        if (
+            input.key === 'F12' || 
+            (input.control && input.shift && input.key.toLowerCase() === 'i')
+        ) {
+            event.preventDefault();
+        }
+    });
 
     mainWindow.on('closed', () => {
         mainWindow = null;
@@ -59,12 +73,9 @@ ipcMain.handle('load-data', async () => {
     }
 });
 
-
-
 // ✅ Handle macOS behavior
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
 });
-
