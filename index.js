@@ -1,4 +1,5 @@
-const { app, BrowserWindow, ipcMain, screen } = require('electron');
+const { app, BrowserWindow, ipcMain, screen, dialog } = require('electron');
+const { autoUpdater } = require('electron-updater'); // ✅ Import updater
 const path = require('path');
 const fs = require('fs').promises;  // ✅ Use async file system
 
@@ -39,8 +40,45 @@ app.whenReady().then(() => {
         }
     });
 
+    // ✅ Check for updates after the window is ready
+    setTimeout(() => {
+        checkForUpdates();
+    }, 5000); // Delay to ensure the app is fully loaded
+
     mainWindow.on('closed', () => {
         mainWindow = null;
+    });
+});
+
+// ✅ Function to check for updates
+function checkForUpdates() {
+    autoUpdater.checkForUpdatesAndNotify();
+}
+
+// ✅ Electron-updater event listeners
+autoUpdater.on('update-available', () => {
+    dialog.showMessageBox({
+        type: 'info',
+        title: 'Update Available',
+        message: 'A new version is available. Do you want to update now?',
+        buttons: ['Yes', 'Later']
+    }).then(result => {
+        if (result.response === 0) { // User clicked "Yes"
+            autoUpdater.downloadUpdate();
+        }
+    });
+});
+
+autoUpdater.on('update-downloaded', () => {
+    dialog.showMessageBox({
+        type: 'info',
+        title: 'Update Ready',
+        message: 'The update has been downloaded. Restart the app to apply changes.',
+        buttons: ['Restart Now', 'Later']
+    }).then(result => {
+        if (result.response === 0) {
+            autoUpdater.quitAndInstall(); // Restart and install
+        }
     });
 });
 

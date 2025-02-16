@@ -17,9 +17,17 @@
   },
   "dependencies": {
     "electron-store": "^10.0.1",
+    "electron-updater": "^6.3.9",
     "intro.js": "^7.2.0"
   },
   "build": {
+    "publish": [
+        {
+            "provider": "github",
+            "owner": "islemnouali",
+            "repo": "Smart-Emploi"
+        }
+    ],
     "win": {
       "icon": "src/Assets/logo1.ico"
     },
