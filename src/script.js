@@ -46,23 +46,60 @@ function drop(event) {
 
     if (isFull) {
         alert("Cette periode est déjà occupée!");
+        const fixWindow = window.open(
+            "about:blank",  // Empty page
+            "_blank",
+            "width=1,height=1,top=-1000,left=-1000"
+        );
+
+        if (fixWindow) {
+            setTimeout(() => fixWindow.close(), 50); // Close after 50ms
+        }
         return;
+        
     }
 
     let existingFull = targetCell.querySelector(".draggable:not(.semaine-a):not(.semaine-b)");
     if (existingFull) {
         alert("Cette periode est déjà occupée!");
+        const fixWindow = window.open(
+            "about:blank",  // Empty page
+            "_blank",
+            "width=1,height=1,top=-1000,left=-1000"
+        );
+
+        if (fixWindow) {
+            setTimeout(() => fixWindow.close(), 50); // Close after 50ms
+        }
         return;
     }
 
     // ✅ Handle week-based placement
     if (existingA && draggedElement.classList.contains("semaine-a")) {
         alert("Semaine A est déjà occupée!");
+        const fixWindow = window.open(
+            "about:blank",  // Empty page
+            "_blank",
+            "width=1,height=1,top=-1000,left=-1000"
+        );
+
+        if (fixWindow) {
+            setTimeout(() => fixWindow.close(), 50); // Close after 50ms
+        }
         return;
     }
 
     if (existingB && draggedElement.classList.contains("semaine-b")) {
         alert("Semaine B est déjà occupée!");
+        const fixWindow = window.open(
+            "about:blank",  // Empty page
+            "_blank",
+            "width=1,height=1,top=-1000,left=-1000"
+        );
+
+        if (fixWindow) {
+            setTimeout(() => fixWindow.close(), 50); // Close after 50ms
+        }
         return;
     }
 
@@ -227,6 +264,15 @@ function handleOption(event, option) {
     } else if (option === 'delete') {
         if (cell.id === 'OriginalCell') {
             alert("Vous ne pouvez pas supprimer la cellule d'origine !");
+            const fixWindow = window.open(
+                "about:blank",  // Empty page
+                "_blank",
+                "width=1,height=1,top=-1000,left=-1000"
+            );
+
+            if (fixWindow) {
+                setTimeout(() => fixWindow.close(), 50); // Close after 50ms
+            }
             return;
         }
         if (confirm('Etes-vous sûr de vouloir supprimer cette cellule ?')) {
@@ -300,10 +346,28 @@ async function removeCellFromStorage(previousCellId, cellId) {
 
         if (week === "semaine-a" && existingB) {
             alert("Revenez à la leçon fixe avant de passer à la semaine A.");
+            const fixWindow = window.open(
+                "about:blank",  // Empty page
+                "_blank",
+                "width=1,height=1,top=-1000,left=-1000"
+            );
+
+            if (fixWindow) {
+                setTimeout(() => fixWindow.close(), 50); // Close after 50ms
+            }
             return;
         }
         if (week === "semaine-b" && existingA) {
             alert("Revenez à la leçon fixe avant de passer à la semaine B.");
+            const fixWindow = window.open(
+                "about:blank",  // Empty page
+                "_blank",
+                "width=1,height=1,top=-1000,left=-1000"
+            );
+
+            if (fixWindow) {
+                setTimeout(() => fixWindow.close(), 50); // Close after 50ms
+            }
             return;
         }
 
