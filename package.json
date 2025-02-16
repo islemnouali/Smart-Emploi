@@ -1,6 +1,6 @@
 {
   "name": "smart_emploi",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "license": "ISC",
   "author": "",
@@ -12,22 +12,21 @@
     "build": "electron-builder"
   },
   "devDependencies": {
-    "electron": "^34.2.0",
+    "electron": "^34.0.2",
     "electron-builder": "^25.1.8"
   },
   "dependencies": {
     "electron-store": "^10.0.1",
     "electron-updater": "^6.3.9",
-    "intro.js": "^7.2.0",
-    "updater": "^0.0.1"
+    "intro.js": "^7.2.0"
   },
   "build": {
     "publish": [
-      {
-        "provider": "github",
-        "owner": "islemnouali",
-        "repo": "Smart-Emploi"
-      }
+        {
+            "provider": "github",
+            "owner": "islemnouali",
+            "repo": "Smart-Emploi"
+        }
     ],
     "win": {
       "icon": "src/Assets/logo1.ico"
