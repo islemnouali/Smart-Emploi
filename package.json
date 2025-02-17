@@ -1,38 +1,49 @@
 {
   "name": "smart_emploi",
-  "version": "1.1.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Smart Emploi",
   "license": "ISC",
-  "author": "",
-  "type": "commonjs",
+  "author": "islem nouali",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron .",
-    "build": "electron-builder"
-  },
-  "devDependencies": {
-    "electron": "^34.0.2",
-    "electron-builder": "^25.1.8"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/islemnouali/Smart-Emploi"
   },
   "dependencies": {
     "electron-store": "^10.0.1",
     "electron-updater": "^6.3.9",
     "intro.js": "^7.2.0"
   },
+  "devDependencies": {
+    "electron": "^34.0.2",
+    "electron-builder": "^25.1.8"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "publish": "electron-builder --publish always"
+  },
   "build": {
-    "publish": [
-        {
-            "provider": "github",
-            "owner": "islemnouali",
-            "repo": "Smart-Emploi"
-        }
-    ],
-    "win": {
-      "icon": "src/Assets/logo1.ico"
+    "appId": "com.islem.smart_emploi",
+    "productName": "Smart Emploi",
+    "directories": {
+      "output": "dist"
     },
-    "linux": {
-      "icon": "src/Assets/logo1.png"
-    }
+    "win": {
+      "icon": "src/Assets/logo1.ico",
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "islemnouali",
+        "repo": "Smart-Emploi",
+        "releaseType": "release"
+      }
+    ]
   }
 }
