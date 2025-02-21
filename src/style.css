@@ -70,7 +70,14 @@ body.dark-mode {
 /* ✅ Dark Mode for Popups */
 .dark-mode .popup {
     background-color: transparent;
-    border: 1px solid #444;
+    border: none;
+
+}
+
+.dark-mode .semaine-a .popup,
+.dark-mode .semaine-b .popup {
+    background-color: transparent;
+    border: none;
 }
 
 .dark-mode .draggable {
@@ -102,7 +109,10 @@ body.dark-mode {
 }
 
 .dark-mode .three-dot-btn {
- background-color: #333;
+    background-color: #333;
+}
+.dark-mode .three-dot-btn:hover {
+    color: #fff;
 }
 
 #tutorial-btn{
@@ -314,8 +324,8 @@ body.dark-mode {
 }
 
 .three-dot-btn:hover {
-    color: #fff ;
-    background-color:#585858 ;
+    color: #333 ;
+    background-color:#a7a7a7 ;
 }
 
 .three-dot-btn span {

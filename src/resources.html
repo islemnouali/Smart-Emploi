@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="preload.js"></script>  <!-- Include the preload script -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resources</title>
@@ -22,23 +23,33 @@
                 <h3>Links</h3>
                 <label for="resource-name">Ajouter des resources:<span> liens youtube, pdf ...</span></label>
                 <div class="add-resource">
-                    <input type="text" id="resource-name" placeholder="Nom de la ressource">
-                    <input type="url" id="resource-link" placeholder="Enter le lien URL :">
+                    <input type="text" id="resource-name" placeholder="Nom de ressource">
+                    <input type="url" id="resource-link" placeholder="lien URL :">
                     <button onclick="addResource()">Ajouter</button>
                 </div>
                 <ul id="resource-list"></ul>
             </div>
 
             <!-- ✅ Images Box -->
-            <div class="box">
+            <!-- <div class="box">
                 <h3>Images</h3>
                 <div class="custom-file-upload">
-                    <label for="image-upload" id="custom-file-label">📁 Importer des images</label>
+                    <label for="image-upload" id="custom-file-label">📁 Importer des images</label> -->
                     <input type="file" id="image-upload" accept="image/*" multiple>
-                </div>
+                <!-- </div>
                 
                 <div id="image-gallery"></div>
+            </div> -->
+            <div class="box">
+                <h3>Fichiers</h3>
+                <div class="custom-file-upload">
+                    <label for="text-upload" id="custom-text-label">📁 Importer des fichiers</label>
+                    <input type="file" id="text-upload" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv" multiple>
+                </div>
+                
+                <div id="text-gallery"></div> <!-- ✅ Separate gallery for text files -->
             </div>
+            
         </div>
     </div>
 

@@ -2,11 +2,14 @@ const { app, BrowserWindow, ipcMain, screen, dialog } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const fs = require('fs').promises;
+const { shell } = require('electron');
 
 const DATA_FILE = path.join(app.getPath('userData'), 'cellsData.json');
 
 let mainWindow;
 let updateWindow = null; // ✅ Only one update window
+
+
 
 app.whenReady().then(() => {
     mainWindow = new BrowserWindow({
@@ -34,10 +37,56 @@ app.whenReady().then(() => {
         checkForUpdates();
     }, 5000);
 
+    // ✅ Block DevTools shortcuts (F12 & Ctrl+Shift+I)
+    mainWindow.webContents.on('before-input-event', (event, input) => {
+        if (
+            input.key === 'F12' || 
+            (input.control && input.shift && input.key.toLowerCase() === 'i')
+        ) {
+            event.preventDefault();
+        }
+    });
+
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
 });
+
+ipcMain.on("open-resources", (event, matiereName, darkMode) => {
+    const { width, height } = screen.getPrimaryDisplay().workAreaSize; // Get screen dimensions
+
+    let popupWidth = Math.floor(0.95 * width);
+    let popupHeight = Math.floor(0.95 * height);
+
+    let resourcesWindow = new BrowserWindow({
+        icon: path.join(__dirname, 'src', 'Assets', 'logo1.ico'),
+        width: popupWidth,
+        height: popupHeight,
+        x: (width - popupWidth) / 2,
+        y: (height - popupHeight) / 2,
+        resizable: false,
+        autoHideMenuBar: true,
+        webPreferences: {
+            preload: path.join(__dirname, "preload.js"),
+            contextIsolation: true,
+            enableRemoteModule: false,
+            nodeIntegration: false
+        }
+    });
+
+    resourcesWindow.loadURL(`file://${path.join(__dirname, "src", "resources.html")}?matiere=${encodeURIComponent(matiereName)}&dark=${darkMode}`);
+
+    // ✅ Block DevTools shortcuts (F12 & Ctrl+Shift+I)
+    resourcesWindow.webContents.on('before-input-event', (event, input) => {
+        if (
+            input.key === 'F12' || 
+            (input.control && input.shift && input.key.toLowerCase() === 'i')
+        ) {
+            event.preventDefault();
+        }
+    });
+});
+
 
 // ✅ Function to check for updates
 function checkForUpdates() {
@@ -163,3 +212,31 @@ app.on('window-all-closed', () => {
         app.quit();
     }
 });
+
+ipcMain.handle("get-file-path", async () => {
+    const result = await dialog.showOpenDialog({
+        title: "Select files",
+        properties: ["openFile", "multiSelections"], // ✅ Allows selecting multiple files
+        filters: [{ name: "All Files", extensions: ["*"] }],
+    });
+
+    if (result.canceled || result.filePaths.length === 0) {
+        return [];
+    }
+
+    return result.filePaths; // ✅ Return an array of file paths
+});
+
+ipcMain.on("open-file", (event, filePath) => {
+    if (!filePath) {
+        console.error("Error: Received undefined filePath");
+        return;
+    }
+
+    console.log("Opening file:", filePath);
+    shell.openPath(filePath);
+});
+
+
+
+

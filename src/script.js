@@ -250,17 +250,8 @@ function handleOption(event, option) {
     if (option === 'resources') {
         let matiereName = cell.querySelector(".input-field1")?.value.trim() || "";
         let darkModeEnabled = localStorage.getItem("darkMode") === "enabled"; // ✅ Check Dark Mode
-
-        let popupWidth = Math.floor(window.innerWidth * 0.95);
-        let popupHeight = Math.floor(window.innerHeight * 0.95);
-        let left = (screen.width - popupWidth) / 2;
-        let top = (screen.height - popupHeight) / 2;
-
-        window.open(
-            `resources.html?matiere=${encodeURIComponent(matiereName)}&dark=${darkModeEnabled}`,
-            "Resources",
-            `width=${popupWidth},height=${popupHeight},top=${top},left=${left},resizable=true,autoHideMenuBar=true`
-        );
+    
+        window.electronAPI.openResources(matiereName, darkModeEnabled);
     } else if (option === 'delete') {
         if (cell.id === 'OriginalCell') {
             alert("Vous ne pouvez pas supprimer la cellule d'origine !");
@@ -460,11 +451,11 @@ function startTutorial() {
                 },
                 {
                     element: document.querySelector(".three-dot-btn"), 
-                    intro: "Dans les options tu peus Acceder aux ressources, Changer la semaine ou Supprimer la cellule."
+                    intro: "Dans les options tu peux Acceder aux ressources, Changer la semaine ou Supprimer la cellule."
                 },
                 {
                     element: document.querySelector("#dark-mode-toggle"), 
-                    intro: "Tu peus activer le mode sombre en cliquant sur ce bouton."
+                    intro: "Tu peux activer le mode sombre en cliquant sur ce bouton."
                 },
                 {
                     element: document.querySelector("#Title"), 
