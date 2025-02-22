@@ -3,12 +3,10 @@ const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const fs = require('fs').promises;
 const { shell } = require('electron');
-
 const DATA_FILE = path.join(app.getPath('userData'), 'cellsData.json');
 
 let mainWindow;
 let updateWindow = null; // ✅ Only one update window
-
 
 
 app.whenReady().then(() => {
@@ -86,7 +84,6 @@ ipcMain.on("open-resources", (event, matiereName, darkMode) => {
         }
     });
 });
-
 
 // ✅ Function to check for updates
 function checkForUpdates() {
@@ -215,8 +212,8 @@ app.on('window-all-closed', () => {
 
 ipcMain.handle("get-file-path", async () => {
     const result = await dialog.showOpenDialog({
-        title: "Select files",
-        properties: ["openFile", "multiSelections"], // ✅ Allows selecting multiple files
+        title: "Select files or folders",
+        properties: ["openFile", "multiSelections"], // ✅ Allows selecting multiple files and folders
         filters: [{ name: "All Files", extensions: ["*"] }],
     });
 
@@ -225,6 +222,20 @@ ipcMain.handle("get-file-path", async () => {
     }
 
     return result.filePaths; // ✅ Return an array of file paths
+});
+
+// ✅ Handle folder selection
+ipcMain.handle("get-folder-path", async () => {
+    const result = await dialog.showOpenDialog({
+        title: "Select folders",
+        properties: ["openDirectory", "multiSelections"], // ✅ Allows selecting multiple folders
+    });
+
+    if (result.canceled || result.filePaths.length === 0) {
+        return [];
+    }
+
+    return result.filePaths; // ✅ Return an array of folder paths
 });
 
 ipcMain.on("open-file", (event, filePath) => {
@@ -236,7 +247,3 @@ ipcMain.on("open-file", (event, filePath) => {
     console.log("Opening file:", filePath);
     shell.openPath(filePath);
 });
-
-
-
-

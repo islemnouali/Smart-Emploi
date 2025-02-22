@@ -1,6 +1,5 @@
 let matiereKey = ""; // ✅ Unique key for each cell's resources
 let imageIndex = 0;
-let imageList = [];
 
 document.addEventListener("DOMContentLoaded", function () {
     const params = new URLSearchParams(window.location.search);
@@ -16,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     loadResources();
-    loadImages(); // ✅ Load saved images
 });
 
 // ✅ Add a resource with name + link
@@ -128,7 +126,7 @@ const icons = {
 };
 
 function addFile(filePath, fileName) {
-    console.log("Adding file:", fileName, "with path:", filePath); // Debugging
+    console.log("Adding:", fileName, "Path:", filePath);
 
     const gallery = document.getElementById("text-gallery");
 
@@ -136,27 +134,40 @@ function addFile(filePath, fileName) {
     const fileContainer = document.createElement("div");
     fileContainer.classList.add("file-container");
 
+    // ✅ Detect if the file is an image
+    const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "webp"];
     const fileExtension = fileName.split('.').pop().toLowerCase();
-    const fileIconSymbol = icons[fileExtension] || icons["default"];
+    const isImage = imageExtensions.includes(fileExtension);
 
-    // ✅ Create file icon
-    const fileIcon = document.createElement("span");
-    fileIcon.textContent = fileIconSymbol;
-    fileIcon.classList.add("file-icon");
-
-    // ✅ Create file name link
-    const fileLink = document.createElement("a");
-    fileLink.href = "#"; 
-    fileLink.textContent = fileName;
-    fileLink.classList.add("file-link");
+    let fileElement;
     
-    // 🔹 Store the file path inside a dataset attribute (important for saving/loading)
-    fileLink.dataset.path = filePath; 
+    if (isImage) {
+        // ✅ If it's an image, show a preview thumbnail
+        fileElement = document.createElement("img");
+        fileElement.src = filePath; // Directly set the image path
+        fileElement.classList.add("file-thumbnail"); // Apply styles for thumbnails
+    } else {
+        // ✅ If it's not an image, show an icon with a link
+        const fileIconSymbol = icons[fileExtension] || icons["default"];
 
+        fileElement = document.createElement("span");
+        fileElement.textContent = fileIconSymbol;
+        fileElement.classList.add("file-icon");
+    }
+
+    // ✅ Create file name label
+    const fileLabel = document.createElement("span");
+    fileLabel.textContent = fileName;
+    fileLabel.classList.add("file-label");
+
+    // ✅ Store file path in dataset for opening
+    fileLabel.dataset.path = filePath;
+
+    // ✅ Click event to open files
     fileContainer.onclick = function (e) {
         e.preventDefault();
-        const storedFilePath = fileLink.dataset.path;
-        console.log("Opening file:", storedFilePath);
+        const storedFilePath = fileLabel.dataset.path;
+        console.log("Opening:", storedFilePath);
 
         if (!storedFilePath) {
             console.error("Error: filePath is undefined!");
@@ -173,25 +184,32 @@ function addFile(filePath, fileName) {
     deleteBtn.onclick = function (event) {
         event.stopPropagation(); // Prevents opening file on delete click
         fileContainer.remove();
-        saveFiles();
+        saveFiles(); // ✅ Ensure deletion is saved
     };
 
-    fileContainer.appendChild(fileIcon);
-    fileContainer.appendChild(fileLink);
+    fileContainer.appendChild(fileElement);
+    fileContainer.appendChild(fileLabel);
     fileContainer.appendChild(deleteBtn);
     gallery.appendChild(fileContainer);
 }
 
+
 // ✅ Save files to localStorage
 function saveFiles() {
     const files = [];
+
     document.querySelectorAll(".file-container").forEach(container => {
-        const fileLink = container.querySelector("a");
-        files.push({ path: fileLink.dataset.path, name: fileLink.textContent });
+        const fileLink = container.querySelector(".file-label"); // Ensure correct selector
+        if (fileLink) {
+            files.push({ path: fileLink.dataset.path, name: fileLink.textContent });
+        }
     });
 
-    localStorage.setItem(`files_${matiereKey}`, JSON.stringify(files));
+    console.log("Saving files:", files); // Debugging
+
+    localStorage.setItem(`files_${matiereKey}`, JSON.stringify(files)); // ✅ Save updated list
 }
+
 
 // ✅ Load saved files from localStorage
 function loadFiles() {
@@ -221,10 +239,58 @@ document.getElementById("text-upload").addEventListener("click", async function 
     saveFiles();
 });
 
+document.getElementById("folder-upload").addEventListener("click", async function () {
+    console.log("Opening folder dialog...");
+
+    // ✅ Call getFolderPath once to open the dialog and get all selected folders
+    const folderPaths = await window.electronAPI.getFolderPath();
+    
+    if (!folderPaths || folderPaths.length === 0) {
+        console.log("❌ No folder selected.");
+        return;
+    }
+
+    console.log("✅ Folders selected:", folderPaths);
+
+    // ✅ Loop through folders and add them to UI
+    for (let folderPath of folderPaths) {
+        const folderName = folderPath.split(/[/\\]/).pop(); // Extract folder name
+        addFile(folderPath, folderName);
+    }
+
+    saveFiles();
+});
+
+document.getElementById("folder-upload").addEventListener("change", async function (event) {
+    console.log("Opening folder dialog...");
+
+    // ✅ Call getFolderPath once to open the dialog and get all selected folders
+    const folderPaths = await window.electronAPI.getFolderPath();
+    
+    if (!folderPaths || folderPaths.length === 0) {
+        console.log("❌ No folder selected.");
+        return;
+    }
+
+    console.log("✅ Folders selected:", folderPaths);
+
+    // ✅ Loop through folders and add them to UI
+    for (let folderPath of folderPaths) {
+        const folderName = folderPath.split(/[/\\]/).pop(); // Extract folder name
+        addFile(folderPath, folderName);
+    }
+
+    saveFiles();
+});
+
 // ✅ Load files on page refresh
 document.addEventListener("DOMContentLoaded", loadFiles);
 
 document.getElementById("text-upload").addEventListener("click", function (event) {
+    event.preventDefault(); // ❌ Prevents opening default file picker
+    event.stopPropagation();
+});
+document.getElementById("folder-upload").addEventListener("click", function (event) {
     event.preventDefault(); // ❌ Prevents opening default file picker
     event.stopPropagation();
 });

@@ -327,11 +327,11 @@ body.dark-mode {
 
 }
 
-/* ✅ Hide Default File Input */
-#image-upload {
+
+#text-upload {
     display: none;
 }
-#text-upload {
+#folder-upload {
     display: none;
 }
 
@@ -356,6 +356,21 @@ body.dark-mode {
 }
 
 #custom-text-label:hover {
+    background-color: #460758;
+    color: #ffffff;
+}
+#custom-folder-label {
+    background-color: #800080;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#custom-folder-label:hover {
     background-color: #460758;
     color: #ffffff;
 }
@@ -450,4 +465,22 @@ body.dark-mode {
 .file-link {
     text-decoration: none;
     color: #121212;
+}
+
+.dark-mode .file-container:hover:has(.file-thumbnail:hover) {
+    background-color: transparent;
+}
+
+.dark-mode .file-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 100ms ease;
+}
+
+.dark-mode .file-thumbnail:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
 }
