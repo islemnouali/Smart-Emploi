@@ -324,76 +324,61 @@ async function removeCellFromStorage(previousCellId, cellId) {
     }
 }
 
+function toggleWeek(week, event) {
+    const cell = event.target.closest('.draggable');
+    if (!cell) return;
+    const parentCell = cell.parentElement;
+    if (!parentCell.classList.contains("cell")) return;
 
+    let existingA = parentCell.querySelector(".draggable.semaine-a");
+    let existingB = parentCell.querySelector(".draggable.semaine-b");
 
-    function toggleWeek(week, event) {
-        const cell = event.target.closest('.draggable');
-        if (!cell) return;
-        const parentCell = cell.parentElement;
-        if (!parentCell.classList.contains("cell")) return;
+    if (week === "semaine-a" && existingB) {
+        alert("Revenez à la leçon fixe avant de passer à la semaine A.");
+        const fixWindow = window.open(
+            "about:blank",  // Empty page
+            "_blank",
+            "width=1,height=1,top=-1000,left=-1000"
+        );
 
-        let existingA = parentCell.querySelector(".draggable.semaine-a");
-        let existingB = parentCell.querySelector(".draggable.semaine-b");
-
-        if (week === "semaine-a" && existingB) {
-            alert("Revenez à la leçon fixe avant de passer à la semaine A.");
-            const fixWindow = window.open(
-                "about:blank",  // Empty page
-                "_blank",
-                "width=1,height=1,top=-1000,left=-1000"
-            );
-
-            if (fixWindow) {
-                setTimeout(() => fixWindow.close(), 50); // Close after 50ms
-            }
-            return;
+        if (fixWindow) {
+            setTimeout(() => fixWindow.close(), 50); // Close after 50ms
         }
-        if (week === "semaine-b" && existingA) {
-            alert("Revenez à la leçon fixe avant de passer à la semaine B.");
-            const fixWindow = window.open(
-                "about:blank",  // Empty page
-                "_blank",
-                "width=1,height=1,top=-1000,left=-1000"
-            );
+        return;
+    }
+    if (week === "semaine-b" && existingA) {
+        alert("Revenez à la leçon fixe avant de passer à la semaine B.");
+        const fixWindow = window.open(
+            "about:blank",  // Empty page
+            "_blank",
+            "width=1,height=1,top=-1000,left=-1000"
+        );
 
-            if (fixWindow) {
-                setTimeout(() => fixWindow.close(), 50); // Close after 50ms
-            }
-            return;
+        if (fixWindow) {
+            setTimeout(() => fixWindow.close(), 50); // Close after 50ms
         }
-
-        if (cell.classList.contains(week)) {
-            cell.classList.remove("semaine-a", "semaine-b");
-            cell.style.width = "230px";
-            cell.style.left = "";
-            cell.style.right = "";
-        } else {
-            cell.classList.remove("semaine-a", "semaine-b");
-            if (week === "semaine-a") {
-                cell.classList.add("semaine-a");
-                cell.style.width = "115px";
-                cell.style.left = "0";
-            } else if (week === "semaine-b") {
-                cell.classList.add("semaine-b");
-                cell.style.width = "115px";
-                cell.style.right = "0";
-            }        
-        }
-        updateCellStorage(parentCell.dataset.id, parentCell.dataset.id); // ✅ Save changes
+        return;
     }
 
-
-function clearAllCells() {
-  // ✅ Remove all placed cells but keep the original ones
-  document.querySelectorAll(".cell .draggable").forEach(cell => {
-      if (cell.id !== "OriginalCell") {
-          cell.remove();
-      }
-  });
-
-  // ✅ Clear saved data so deleted cells don’t reappear
-  saveData({});
-}
+    if (cell.classList.contains(week)) {
+        cell.classList.remove("semaine-a", "semaine-b");
+        cell.style.width = "230px";
+        cell.style.left = "";
+        cell.style.right = "";
+    } else {
+        cell.classList.remove("semaine-a", "semaine-b");
+        if (week === "semaine-a") {
+            cell.classList.add("semaine-a");
+            cell.style.width = "115px";
+            cell.style.left = "0";
+        } else if (week === "semaine-b") {
+            cell.classList.add("semaine-b");
+            cell.style.width = "115px";
+            cell.style.right = "0";
+        }        
+    }
+    updateCellStorage(parentCell.dataset.id, parentCell.dataset.id); // ✅ Save changes
+}    
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("faculte").value = localStorage.getItem("faculte") || "";
@@ -458,8 +443,7 @@ function startTutorial() {
                     intro: "Tu peux activer le mode sombre en cliquant sur ce bouton."
                 },
                 {
-                    element: document.querySelector("#Title"), 
-                    intro: "! Dans l'onglet Ressources, vous pouvez ajouter des informations, des liens et des images liés au sujet à partir duquel vous avez saisi les ressources.<br><br>! Deux cellules portant le même nom contiendront les mêmes ressources."
+                    intro: "! Dans l'onglet Ressources, vous pouvez ajouter des Informations, des Liens et des Fichier liés au sujet à partir duquel vous avez accédé les ressources.<br><br>! Deux cellules portant le même nom contiendront les mêmes ressources."
                 }
             ],
             showProgress: false,  // ✅ Show step progress bar

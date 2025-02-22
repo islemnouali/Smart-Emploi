@@ -126,6 +126,7 @@ const icons = {
     "exe": "⚙️",
     "default": "📁" // Default icon for unknown file types
 };
+
 function addFile(filePath, fileName) {
     console.log("Adding file:", fileName, "with path:", filePath); // Debugging
 
@@ -181,7 +182,6 @@ function addFile(filePath, fileName) {
     gallery.appendChild(fileContainer);
 }
 
-
 // ✅ Save files to localStorage
 function saveFiles() {
     const files = [];
@@ -220,8 +220,6 @@ document.getElementById("text-upload").addEventListener("click", async function 
 
     saveFiles();
 });
-
-
 
 // ✅ Load files on page refresh
 document.addEventListener("DOMContentLoaded", loadFiles);
