@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     loadResources();
+    loadFiles(); // ✅ Ensure files are loaded on page load
 });
 
 // ✅ Add a resource with name + link
@@ -214,6 +215,9 @@ function saveFiles() {
 // ✅ Load saved files from localStorage
 function loadFiles() {
     const savedFiles = JSON.parse(localStorage.getItem(`files_${matiereKey}`)) || [];
+    const gallery = document.getElementById("text-gallery");
+    gallery.innerHTML = ""; // ✅ Clear existing files to prevent duplication
+
     savedFiles.forEach(file => addFile(file.path, file.name));
 }
 
@@ -284,7 +288,10 @@ document.getElementById("folder-upload").addEventListener("change", async functi
 });
 
 // ✅ Load files on page refresh
-document.addEventListener("DOMContentLoaded", loadFiles);
+document.addEventListener("DOMContentLoaded", function () {
+    loadResources();
+    loadFiles(); // ✅ Ensure files are loaded on page load
+});
 
 document.getElementById("text-upload").addEventListener("click", function (event) {
     event.preventDefault(); // ❌ Prevents opening default file picker

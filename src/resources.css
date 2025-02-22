@@ -440,6 +440,11 @@ body.dark-mode {
     margin-bottom: 5px;
 }
 
+/* ✅ Ensure long file names wrap to the next line */
+.file-label {
+    word-wrap: break-word;
+    width: 100px;
+}
 
 .file-container:hover {
     background-color: #ccc;
@@ -481,6 +486,34 @@ body.dark-mode {
 }
 
 .dark-mode .file-thumbnail:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+.dark-mode .file-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 100ms ease;
+}
+.file-thumbnail:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+/* ✅ Image thumbnail styles */
+.file-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 100ms ease;
+}
+
+.file-thumbnail:hover {
     opacity: 0.8;
     transform: scale(1.05);
 }
