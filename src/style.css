@@ -266,17 +266,107 @@ body.dark-mode {
     position: relative;
     padding: 0;
     box-sizing: border-box;
+    position: relative;
 }
+
+.dark-mode .time {
+    background: transparent;
+    border: none;
+
+}
+
+/* Set a fixed background color */
+.flatpickr-calendar {
+    border: none !important;
+    width: 15vh !important;
+    color: #fff !important;       /* White text */
+    opacity: 1 !important;        /* Ensure it doesn't become transparent */
+    box-shadow: none !important;  /* Removes any shadow */
+}
+
+/* Make sure the time section also keeps its color */
+.flatpickr-time {
+    background: #444 !important;
+    color: #fff !important;
+    border: none !important; /* Ensures no border */
+}
+
+/* Fix text color for time inputs */
+.flatpickr-time input {
+    color: #fff !important;
+    border: none !important;
+    outline: none !important; /* Removes focus border */
+}
+
+/* Remove blue highlight when user types */
+.flatpickr-time input::selection {
+    background: transparent !important; 
+    color: inherit !important; /* Keeps text visible */
+}
+
+/* Keep the highlight color fixed */
+.flatpickr-day.selected,
+.flatpickr-time input:focus {
+    background: #7d7d7d !important; /* Grey highlight */
+    color: #fff !important;
+}
+
+/* Ensure dropdown color does not change on hover */
+.flatpickr-time input:hover {
+    background: #444 !important;
+}
+
+/* Prevents ugly focus outlines when clicking */
+.flatpickr-time input:focus-visible {
+    outline: none !important;
+}
+
 
 .time {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: -5px;
+    right: -7px;
+    width: 55px;
+    height: 25px;
     font-size: 12px;
-    color: rgb(53, 53, 53);
-    z-index: 999;
+    color: #333;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-variant-numeric: tabular-nums; /* Ensure 24-hour format in Chrome */
+
 }
 
+/* Remove clock icon */
+.time::-webkit-calendar-picker-indicator {
+    display: none !important;
+    -webkit-appearance: none;
+}
+
+/* Remove AM/PM in Firefox */
+.time::-moz-datetime-edit-ampm-field {
+    display: none !important;
+}
+
+/* Hover & Focus Effects */
+.time:hover {
+    background: transparent;
+    color: #999999;
+}
+
+.time:focus {
+    outline: none;
+    border-color: #444;
+}
+
+.time:focus {
+    outline: none !important; /* Removes default browser outline */
+    border: none !important; /* Ensures no border appears */
+    box-shadow: none !important; /* Removes any glow effects */
+}
 .draggable {
     width: 230px;
     height: 70px;
@@ -303,10 +393,11 @@ body.dark-mode {
     width: 15px;
     position: absolute; /* Position relative to .draggable */
     right: 5px; /* Position the icon to the right inside the container */
-    top: 50%; /* Vertically center the icon */
+    top: 55%; /* Vertically center the icon */
     transform: translateY(-50%); /* Adjust to center the icon exactly */
     font-size: 16px; /* Size of the icon */
     pointer-events: none; /* Makes the icon unclickable */
+    z-index: 1000;
 }
 
 .three-dot-btn {
@@ -321,6 +412,7 @@ body.dark-mode {
     display: flex;
     flex-direction: column; /* Stack dots vertically */
     align-items: center;
+    transition: all 0.2s ease-in-out;
 }
 
 .three-dot-btn:hover {

@@ -31,7 +31,7 @@ function addResource() {
     const li = document.createElement("li");
     li.innerHTML = `
         <a href="${url}" target="_blank">${name}</a>
-        <button class="delete-btn" onclick="removeResource(this)">X</button>
+        <button class="delete-btn" onclick="confirmRemove(this)">X</button>
     `;
 
     document.getElementById("resource-list").appendChild(li);
@@ -40,6 +40,12 @@ function addResource() {
     // ✅ Clear input fields after adding
     nameInput.value = "";
     urlInput.value = "";
+}
+
+function confirmRemove(button) {
+    if (confirm("Are you sure you want to delete this resource?")) {
+        removeResource(button);
+    }
 }
 
 // ✅ Remove a resource
@@ -66,12 +72,13 @@ function saveResources() {
 function loadResources() {
     const savedResources = JSON.parse(localStorage.getItem(matiereKey)) || [];
     const resourceList = document.getElementById("resource-list");
+    resourceList.innerHTML = ""; // ✅ Clear existing resources to prevent duplication
 
     savedResources.forEach(item => {
         const li = document.createElement("li");
         li.innerHTML = `
             <a href="${item.url}" target="_blank">${item.name}</a>
-            <button class="delete-btn" onclick="removeResource(this)">X</button>
+            <button class="delete-btn" onclick="confirmRemove(this)">X</button>
         `;
         resourceList.appendChild(li);
     });
@@ -82,7 +89,6 @@ function loadResources() {
     // ✅ Auto-save changes in the info box
     document.getElementById("info").addEventListener("input", saveResources);
 }
-
 
 document.addEventListener("DOMContentLoaded", function () {
     const params = new URLSearchParams(window.location.search);
@@ -184,8 +190,10 @@ function addFile(filePath, fileName) {
     deleteBtn.classList.add("delete-file-btn");
     deleteBtn.onclick = function (event) {
         event.stopPropagation(); // Prevents opening file on delete click
-        fileContainer.remove();
-        saveFiles(); // ✅ Ensure deletion is saved
+        if (confirm("Are you sure you want to delete this file?")){
+            fileContainer.remove();
+            saveFiles(); // ✅ Ensure deletion is saved
+        }
     };
 
     fileContainer.appendChild(fileElement);
@@ -193,7 +201,6 @@ function addFile(filePath, fileName) {
     fileContainer.appendChild(deleteBtn);
     gallery.appendChild(fileContainer);
 }
-
 
 // ✅ Save files to localStorage
 function saveFiles() {
@@ -210,7 +217,6 @@ function saveFiles() {
 
     localStorage.setItem(`files_${matiereKey}`, JSON.stringify(files)); // ✅ Save updated list
 }
-
 
 // ✅ Load saved files from localStorage
 function loadFiles() {

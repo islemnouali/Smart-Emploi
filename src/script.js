@@ -1,6 +1,60 @@
 let draggedElement = null;
 const { saveData, loadData } = window.electronAPI;
 
+// Save time to localStorage
+function saveTime(input) {
+    const timeId = input.dataset.id;
+    const timeValue = input.value;
+    localStorage.setItem(`time_${timeId}`, timeValue);
+}
+
+// Load saved times from localStorage
+function loadTimes() {
+    document.querySelectorAll('.time').forEach(input => {
+        const timeId = input.dataset.id;
+        const savedTime = localStorage.getItem(`time_${timeId}`);
+        if (savedTime) {
+            input.value = savedTime;
+        }
+    });
+}
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".time").forEach(input => {
+        flatpickr(input, {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true,
+            appendTo: input.closest(".cell"), // Forces the dropdown inside the cell
+            onOpen: function (selectedDates, dateStr, instance) {
+                    // Align to the right of the input
+                    calendar.style.left = "auto";
+                    calendar.style.right = "auto";  
+                    setTimeout(() => {
+                        let hourInput = instance.calendarContainer.querySelector(".flatpickr-hour");
+                        let minuteInput = instance.calendarContainer.querySelector(".flatpickr-minute");
+    
+                        if (hourInput) hourInput.blur(); // Remove focus from hours
+                        if (minuteInput) minuteInput.blur(); // Remove focus from minutes
+                    }, 10); // Delay to ensure Flatpickr renders first
+            }
+        });
+    });
+});
+
+
+
+
+document.addEventListener('DOMContentLoaded', loadTimes);
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".time").forEach(input => {
+        input.style.position = "absolute"; // Ensure it stays on top
+        input.style.zIndex = "999"; // Keeps it above everything
+            
+    });
+});
+
 function allowDrop(event) {
     event.preventDefault();
 }
@@ -178,8 +232,28 @@ async function loadSavedCells() {
         const parentCell = document.querySelector(`.cell[data-id="${cellDataId}"]`);
         if (!parentCell) return;
 
-        parentCell.innerHTML = `<span class="time">${parentCell.querySelector('.time')?.innerText || ""}</span>`;
+        // ✅ Preserve the time input instead of overwriting it
+        let timeInput = parentCell.querySelector(".time");
+        if (!timeInput) {
+            timeInput = document.createElement("input");
+            timeInput.type = "time";
+            timeInput.classList.add("time");
+            timeInput.dataset.id = cellDataId;
+            timeInput.onchange = function () { saveTime(this); };
+            parentCell.appendChild(timeInput);
+        }
 
+        // ✅ Restore saved time
+        const savedTime = localStorage.getItem(`time_${cellDataId}`);
+        if (savedTime) {
+            timeInput.value = savedTime;
+        }
+
+        // ✅ Ensure time input stays visible on top
+        timeInput.style.position = "absolute";
+        timeInput.style.zIndex = "10";
+
+        // ✅ Now load other saved data
         savedCells[cellDataId].forEach(data => {
             const newCell = document.createElement("div");
             newCell.id = data.cellId;
@@ -211,16 +285,7 @@ async function loadSavedCells() {
     });
 }
 
-document.addEventListener("input", (event) => {
-    let cell = event.target.closest(".draggable");
-    if (cell) {
-        let parentCell = cell.parentElement;
-        if (parentCell.classList.contains("cell")) {
-            updateCellStorage(parentCell.dataset.id, parentCell.dataset.id);
-        }
-    }
-});
-
+// ✅ Load saved cells and times on page load
 document.addEventListener("DOMContentLoaded", loadSavedCells);
 
 
@@ -428,7 +493,7 @@ function startTutorial() {
                 },
                 {
                     element: document.querySelector(".cells-container"), 
-                    intro: "Pour ajouter une nouvelle cellule, faites glisser l'une de ces cellules (Cour, TD, TP) dans la grille. (Drag & Drop)."
+                    intro: "Pour organiser votre emploi, faites glisser ces cellules (Cour, TD, TP) dans la grille. (Drag & Drop)."
                 },
                 {
                     element: document.querySelector("#OriginalCell"), 
@@ -441,6 +506,10 @@ function startTutorial() {
                 {
                     element: document.querySelector("#dark-mode-toggle"), 
                     intro: "Tu peux activer le mode sombre en cliquant sur ce bouton."
+                },
+                {
+                    element: document.querySelector(".time"), 
+                    intro: "Tu peux changer le temps."
                 },
                 {
                     intro: "! Dans l'onglet Ressources, vous pouvez ajouter des Informations, des Liens et des Fichier liés au sujet à partir duquel vous avez accédé les ressources.<br><br>! Deux cellules portant le même nom contiendront les mêmes ressources."
